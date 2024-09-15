@@ -2,7 +2,12 @@ math.special = math.special or {}
 do
     local special = math.special
 
-
+    function special.factorial(n)
+        if n % 1 ~= 0 then return nil end
+        if n == 0 or n == 1 then return 1 end
+        return n*factorial(n-1)  
+    end
+    
     -- используем приближение Ланцоша
     function special.gamma(x)
         local g = 7
