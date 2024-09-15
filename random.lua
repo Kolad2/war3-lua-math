@@ -24,17 +24,17 @@ do -- reqire "math.special"
 end
 
 
-do
+do -- poisson distribution
     local poisson = math.random.poisson
     local loggamma = math.special.loggamma
   
     function poisson.ptrs(lam)
-        local slam = math.sqrt(lam)
-        local loglam = math.log(lam)
-        local b = 0.931 + 2.53 * slam
-        local a = -0.059 + 0.02483 * b
-        local invalpha = 1.1239 + 1.1328 / (b - 3.4)
-        local vr = 0.9277 - 3.6224 / (b - 2)
+      local slam = math.sqrt(lam)
+      local loglam = math.log(lam)
+      local b = 0.931 + 2.53 * slam
+      local a = -0.059 + 0.02483 * b
+      local invalpha = 1.1239 + 1.1328 / (b - 3.4)
+      local vr = 0.9277 - 3.6224 / (b - 2)
       
       while true do
           local U = math.random() - 0.5
@@ -55,9 +55,8 @@ do
           end
         end
     end
-    setmetatable(poisson, {
-      __call = function(tbl,lambda,...)
-          return poisson.ptrs(lambda)
-      end
-    })
+    
+    poisson.rvs = function(lambda) 
+        return poisson.ptrs(lambda)
+    end 
 end
