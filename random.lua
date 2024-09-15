@@ -1,10 +1,25 @@
-do
-    local uniform = (type(math.random) == "function") and math.random or math.uniform
+do -- reqire "math.special"
+    local uniform = {}
+    uniform.rvs = (type(math.random) == "function") and math.random or math.uniform.rvs
+    
     local random = {
       uniform = uniform,
-      poisson = {}
+      poisson = {},
+      exponential = {},
+      normal = {}
     }
-    setmetatable(random, {__call = function(tbl,...) return random.uniform(...) end})
+    setmetatable(random, {__call = function(tbl,...) return random.uniform.rvs(...) end})
+    
+    local meta_distr = {
+      __call = function(distr,...)
+          return distr.rvs(...)
+      end
+    }
+  
+    for key, val in pairs(random) do
+        setmetatable(val, meta_distr)
+    end
+    
     math.random = random
 end
 
