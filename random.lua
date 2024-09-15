@@ -72,5 +72,24 @@ do -- exponential distribution
     exponential.rvs = function(lambda) 
         return exponential.standart(lambda)
     end
+end
+
+
+do -- normal distrebution
+    local normal = math.random.normal
+    
+    function normal.box_muller()
+        local u1 = math.random()
+        local u2 = math.random()
+        return math.sqrt(-2 * math.log(u1)) * math.cos(2 * math.pi * u2)
+    end
+    
+    function normal.rvs(mean, std)
+        mean = mean or 0
+        std = std or 1
+        return normal.box_muller()*std + mean 
+    end
     
 end
+
+
