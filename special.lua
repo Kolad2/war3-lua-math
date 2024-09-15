@@ -57,4 +57,35 @@ do
             return term1 + term2 + term3
         end
     end
+    
+        -- Функция erf(x)
+    function special.erf(x)
+        -- Константы
+        local a1 =  0.254829592
+        local a2 = -0.284496736
+        local a3 =  1.421413741
+        local a4 = -1.453152027
+        local a5 =  1.061405429
+        local p  =  0.3275911
+    
+        -- Сохранение знака x
+        local sign = 1
+        if x < 0 then
+            sign = -1
+        end
+        x = math.abs(x)
+    
+        -- Вычисление по формуле
+        local t = 1.0 / (1.0 + p * x)
+        local y = 1.0 - (((((a5 * t + a4) * t + a3) * t + a2) * t + a1) * t) * math.exp(-x * x)
+    
+        return sign * y
+    end
+
+    
+    -- Функция beta(a, b)
+    function special.beta(a, b)
+        return math.exp(special.loggamma(a) + special.loggamma(b) - special.loggamma(a + b))
+    end
+    
 end
