@@ -60,3 +60,4 @@ do -- poisson distribution
         return poisson.ptrs(lambda)
     end 
 end
+
