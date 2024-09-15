@@ -1,7 +1,9 @@
 math.special = math.special or {}
 do
     local special = math.special
-    
+
+
+    -- используем приближение Ланцоша
     function special.gamma(x)
         local g = 7
         local p = {
