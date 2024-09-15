@@ -61,3 +61,16 @@ do -- poisson distribution
     end 
 end
 
+do -- exponential distribution
+    local exponential = math.random.exponential
+    
+    function exponential.standart(lambda)
+        local u = math.random()
+        return - math.log(u) * lambda
+    end
+    
+    exponential.rvs = function(lambda) 
+        return exponential.standart(lambda)
+    end
+    
+end
