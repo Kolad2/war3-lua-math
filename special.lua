@@ -1,6 +1,6 @@
-math = math or {}
-math.special = math.special or {}
 do
+    math = math or {}
+    math.special = math.special or {}
     local special = math.special
 
     function special.factorial(n)
