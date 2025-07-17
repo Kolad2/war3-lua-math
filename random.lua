@@ -28,7 +28,22 @@ do -- poisson distribution
     local poisson = math.random.poisson
     math.special = math.special or {}
 
+    -- Генерация случайного числа с распределением Пуассона
+    function poisson.knut(lam)
+        local L = math.exp(-lam)
+        local k = 0
+        local p = 1.0
 
+        repeat
+            k = k + 1
+            p = p * math.random()
+        until p <= L
+
+        return k - 1
+    end
+
+    -- The transformed rejection method for generating Poisson random variables
+    -- https://doi.org/10.1016/0167-6687(93)90997-4
     function poisson.ptrs(lam)
         local loggamma = math.special.loggamma
         local slam = math.sqrt(lam)
@@ -59,6 +74,9 @@ do -- poisson distribution
     end
 
     poisson.rvs = function(lambda)
+        if lambda < 1 then
+            return poisson.knut(lambda)
+        end
         return poisson.ptrs(lambda)
     end
 end
